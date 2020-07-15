@@ -15,10 +15,11 @@ def find_all_path(dict,start_vertex, end_vertex, path=[]):
 
 if __name__ == "__main__":
     print("Enter no of testcases: ")
-    matrix = []
     t = int(input())
     if t>=1 and t<=100:
         for y in range(0,t):
+            matrix = []
+            print("\n")
             print("Enter n and m: ")
             row,column = input().split()
             row = int(row)
@@ -32,7 +33,7 @@ if __name__ == "__main__":
                         arr.append(int(val[0]))
                         del val[0]
                     matrix.append(arr)
-                print(matrix)
+                #print(matrix)
                 print("Enter destination index")
                 n, m = input().split()
                 n = int(n)
@@ -54,7 +55,7 @@ if __name__ == "__main__":
                         if (k + 1) <= (row - 1):
                             if matrix[(k + 1)][l] == 1:
                                 dict[(k, l)].append((k + 1, l))
-                print(dict)
+                #print(dict)
                 paths = find_all_path(dict,(0,0),destination)
                 paths = sorted(paths,key=len)
                 res_path = []
