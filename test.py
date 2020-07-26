@@ -1,8 +1,4 @@
-#1- Loop over value array and compare value of each element with previous element
-#if value is more then previous value take this value and continue the operation
-#Step1 will give the Max value and its location.
-#2- start the weight of this value and compare it with W if less then keep it and replace val and wt value in both the array with 0
-#and move to step1 again.
+
 def get_max(value):
     max = 0
     if len(value) ==1:
@@ -33,32 +29,56 @@ def compare_weight(value,weight,val_arr,weight_arr,w):
                 del weight[i]
             compare_weight(value, weight, val_arr, weight_arr,w)
 
+def sub_lists(sublist,list1,index,subarr):
+    # store all the sublists
+    # sublist = [[]]
+    if index == len(list1):
+        if len(subarr) != 0:
+            sublist.append([subarr])
+            print(subarr)
+
+    else:
+        sub_lists(sublist, list1, index + 1, subarr)
+        sub_lists(sublist, list1, index + 1, subarr + [list1[index]])
+
+    return sublist
+
 if __name__ == "__main__":
-    value = []
-    weight = []
-    #print("Enter no of testcases: ")
+    print("Enter no of testcases: ")
     t = int(input())
     if t>=1 and t<=20:
         for y in range(0,t):
-            #print("Enter capacity and no of values: ")
+            arr = []
+            print("Enter capacity and no of values: ")
             w,n = input().split()
-            #print("next %s lines, where each line contains 2 numbers weight and value" % n)
+            w = int(w)
+            n = int(n)
+            print("next %s lines, where each line contains 2 numbers weight and value" % n)
             for i in range(int(n)):
                 v1, v2 = input().split()
-                value.append(int(v2))
-                weight.append(int(v1))
-
-            #print("values are %s" %value)
+                tup1 = (int(v1),int(v2))
+                arr.append(tup1)
+            print("values are %s" %arr)
             #value = [200, 100, 120, 60,0,1]
             #weight = [10, 20, 30, 40,0,1]
             #w = 70
-            val_arr = []
-            weight_arr = []
-            if len(value) == len(weight):
-                val_arr,weight_arr = compare_weight(value,weight,val_arr,weight_arr,w)
-                #print(sum(val_arr))
-                print("Sub array is %s and max value achieved is %s, weight arrar is %s and total weight is %s" %(val_arr,sum(val_arr),weight_arr, sum(weight_arr)))
-            else:
-                print("length of value list and weignt list is not same")
+            sub_arr = sub_lists([[]],arr,0,[])
+            value = []
+            for val in sub_arr:
+                value1 = []
+                weight1 = []
+                for val1 in val:
+                    value1.append(val1[1])
+                    weight1.append(val1[0])
+                tup2 = (value1,weight1)
+                value.append((tup2))
+            for var in value:
+                if var[1] > w:
+                    value.remove(var)
+            value2 = []
+            for var in value:
+                value2.appen(var[0])
+            print(value2.sort()[-1])
+
 
 
